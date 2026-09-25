@@ -2,16 +2,18 @@ package messaging.domain
 
 import java.time.Instant
 
-sealed interface ConversationCommand
+sealed interface ConversationCommand {
+    val conversationId: ConversationId
+}
 
 data class StartConversation(
-    val conversationId: ConversationId,
+    override val conversationId: ConversationId,
     val participants: Set<String>,
     val at: Instant,
 ) : ConversationCommand
 
 data class PostMessage(
-    val conversationId: ConversationId,
+    override val conversationId: ConversationId,
     val messageId: MessageId,
     val sender: String,
     val body: String,
